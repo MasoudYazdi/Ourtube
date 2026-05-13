@@ -1,16 +1,16 @@
-name: 02 - 💚  رایگان (کیفیت پایین)
+name: 02 - 💚 رایگان (بالاترین کیفیت)
 
 on:
   workflow_dispatch:
     inputs:
       video_urls:
-        description: '📥 لینک ویدیو - چند لینک با فاصله  (دقت کنید که نسخه رایگان امکاناتی چون انتخاب کیفیت ، زیرنویس ، تبدیل به صدا ، رمزگذاری روی فایل و ... ندارد و فقط کیفیت پایین دانلود میکند'
+        description: '📥 لینک ویدیو - چند لینک با فاصله (نسخه رایگان - بالاترین کیفیت ممکن)'
         required: true
         type: string
 
 jobs:
   get-video-free:
-    name: "📥 دانلود رایگان (360p)"
+    name: "📥 دانلود رایگان (Best Quality)"
     runs-on: ubuntu-latest
     timeout-minutes: 180
     permissions:
@@ -21,20 +21,10 @@ jobs:
         run: |
           echo ""
           echo "========================================"
-          echo "🆓 نسخه رایگان دانلودر"
+          echo "🆓 نسخه رایگان دانلودر - بالاترین کیفیت"
           echo "========================================"
           echo ""
-          echo "⚠️ این نسخه رایگان است و محدودیت‌های زیر را دارد:"
-          echo ""
-          echo "   ❌ کیفیت پایین (360p)"
-          echo "   ❌ بدون انتخاب کیفیت"
-          echo "   ❌ بدون دانلود MP3"
-          echo "   ❌ بدون زیرنویس"
-          echo "   ❌ بدون رمزگذاری فایل"
-          echo ""
-          echo "✨ برای دسترسی به تمام امکانات:"
-          echo "   1️⃣ به workflow شماره 01 بروید"
-          echo "   2️⃣ کد فعالسازی بگیرید از: pay.avasam.ir/link/769604"
+          echo "✨ این نسخه رایگان است و بالاترین کیفیت ممکن را دانلود می‌کند"
           echo ""
           echo "========================================"
           echo ""
@@ -98,7 +88,7 @@ jobs:
           deno --version
           pip3 install --upgrade yt-dlp
 
-      - name: Download YouTube Video (Free - 360p)
+      - name: Download YouTube Video (Free - Best Quality)
         env:
           YT_URLS: ${{ github.event.inputs.video_urls }}
           REPO_OWNER_ENV: ${{ github.repository_owner }}
@@ -111,8 +101,8 @@ jobs:
           URLS_RAW="${YT_URLS}"
           read -ra URL_LIST <<< "$URLS_RAW"
           TOTAL_URLS=${#URL_LIST[@]}
-          QUALITY="360"
-          FORMAT="bestvideo[height<=360]+bestaudio/bestvideo[height<=360]*+bestaudio*/best[height<=360]/best"
+          QUALITY="best"
+          FORMAT="bestvideo+bestaudio/best"
           SPLIT_MB=45
           SPLIT_BYTES=$(( SPLIT_MB * 1024 * 1024 ))
           BACKUP_DIR="/tmp/video_backup_$$"
@@ -121,7 +111,7 @@ jobs:
           > /tmp/video_info.txt
 
           echo "========================================"
-          echo "🆓 نسخه رایگان - کیفیت 360p"
+          echo "🆓 نسخه رایگان - بالاترین کیفیت (best)"
           echo "========================================"
           echo "Total URLs to download: $TOTAL_URLS"
 
@@ -228,8 +218,7 @@ jobs:
                 {
                   printf '%s\n' "# ${FILENAME_NO_EXT}"
                   printf '%s\n' ""
-                  printf '%s\n' "> 🆓 **نسخه رایگان** - کیفیت 360p"
-                  printf '%s\n' "> برای کیفیت بالاتر، MP3، زیرنویس و رمزگذاری به [workflow شماره 01](../../actions) بروید"
+                  printf '%s\n' "> 🆓 **نسخه رایگان** - بالاترین کیفیت ممکن"
                   printf '%s\n' ""
                   if [ -f "$BACKUP_DIR/${FINAL_FOLDER_NAME}/thumbnail.jpg" ]; then
                     printf '%s\n' "<div align=\"center\">"
@@ -248,7 +237,7 @@ jobs:
                   printf '%s\n' "| **Video Name** | \`${FILENAME_NO_EXT}\` |"
                   printf '%s\n' "| **Original Link** | [YouTube Video](${URL}) |"
                   printf '%s\n' "| **Total Size** | **${PART_COUNT} parts** - **${TOTAL_SIZE_MB} MB** |"
-                  printf '%s\n' "| **Quality** | **360p (Free)** |"
+                  printf '%s\n' "| **Quality** | **Best (Free)** |"
                   printf '%s\n' ""
                   printf '%s\n' "---"
                   printf '%s\n' ""
@@ -262,7 +251,7 @@ jobs:
                   printf '%s\n' ""
                   printf '%s\n' "---"
                   printf '%s\n' ""
-                  printf '%s\n' "*🆓 Free Version - [avasam.ir](https://avasam.ir)*"
+                  printf '%s\n' "*🆓 Free Version - Best Quality - [avasam.ir](https://avasam.ir)*"
                 } > "$README_FILE"
               else
                 cp "$FILE" "$BACKUP_DIR/${FINAL_FOLDER_NAME}/${FINAL_FOLDER_NAME}.${EXT}"
@@ -273,8 +262,7 @@ jobs:
                 {
                   printf '%s\n' "# ${FILENAME_NO_EXT}"
                   printf '%s\n' ""
-                  printf '%s\n' "> 🆓 **نسخه رایگان** - کیفیت 360p"
-                  printf '%s\n' "> برای کیفیت بالاتر، MP3، زیرنویس و رمزگذاری به [workflow شماره 01](../../actions) بروید"
+                  printf '%s\n' "> 🆓 **نسخه رایگان** - بالاترین کیفیت ممکن"
                   printf '%s\n' ""
                   if [ -f "$BACKUP_DIR/${FINAL_FOLDER_NAME}/thumbnail.jpg" ]; then
                     printf '%s\n' "<div align=\"center\">"
@@ -293,7 +281,7 @@ jobs:
                   printf '%s\n' "| **Video Name** | \`${FILENAME_NO_EXT}\` |"
                   printf '%s\n' "| **Original Link** | [YouTube Video](${URL}) |"
                   printf '%s\n' "| **Total Size** | **${SIZE_MB} MB** |"
-                  printf '%s\n' "| **Quality** | **360p (Free)** |"
+                  printf '%s\n' "| **Quality** | **Best (Free)** |"
                   printf '%s\n' ""
                   printf '%s\n' "---"
                   printf '%s\n' ""
@@ -305,7 +293,7 @@ jobs:
                   printf '%s\n' ""
                   printf '%s\n' "---"
                   printf '%s\n' ""
-                  printf '%s\n' "*🆓 Free Version - [avasam.ir](https://avasam.ir)*"
+                  printf '%s\n' "*🆓 Free Version - Best Quality - [avasam.ir](https://avasam.ir)*"
                 } > "$README_FILE"
               fi
             done
@@ -361,7 +349,7 @@ jobs:
           git add -f videos/README.md
 
           if ! git diff --cached --quiet; then
-            git commit -m "[AVASAM-FREE] YouTube download 360p [skip ci]"
+            git commit -m "[AVASAM-FREE] YouTube download Best Quality [skip ci]"
             PUSH_RETRY=0
             while [ $PUSH_RETRY -lt 10 ]; do
               PUSH_RETRY=$((PUSH_RETRY + 1))
@@ -371,11 +359,7 @@ jobs:
                 echo "✅ دانلود با موفقیت انجام شد!"
                 echo "========================================"
                 echo ""
-                echo "🆓 این نسخه رایگان بود (360p)"
-                echo ""
-                echo "✨ برای کیفیت بالاتر، MP3، زیرنویس و رمزگذاری:"
-                echo "   به workflow شماره 01 بروید"
-                echo "   کد فعالسازی: pay.avasam.ir/link/769604"
+                echo "🆓 این نسخه رایگان بود - بالاترین کیفیت دانلود شد"
                 echo ""
                 echo "========================================"
                 break
@@ -388,7 +372,7 @@ jobs:
                 git add -f videos/
                 regenerate_master_readme
                 git add -f videos/README.md
-                git diff --cached --quiet || git commit -m "[AVASAM-FREE] YouTube download 360p [skip ci]"
+                git diff --cached --quiet || git commit -m "[AVASAM-FREE] YouTube download Best Quality [skip ci]"
               fi
             done
           fi
